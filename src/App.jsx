@@ -1,4 +1,10 @@
+import { Navbar } from './cmps/Navbar'
+
 const App = () => {
-  return <h2>Navbar-Component</h2>
+  return (
+    <main>
+      <Navbar />
+    </main>
+  )
 }
 export default App
