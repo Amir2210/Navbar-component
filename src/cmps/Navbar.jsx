@@ -1,5 +1,6 @@
 import { HeaderLinks } from './HeaderLinks';
 import { NavHeader } from './NavHeader';
+import { HeaderSocial } from './headerSocial';
 
 export function Navbar() {
   return (
@@ -7,6 +8,7 @@ export function Navbar() {
       <div className="nav-center">
         <NavHeader />
         <HeaderLinks />
+        <HeaderSocial />
       </div>
     </nav>
   )
