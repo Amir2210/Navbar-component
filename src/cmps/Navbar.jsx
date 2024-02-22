@@ -1,12 +1,18 @@
+import { useState } from 'react';
 import { HeaderLinks } from './HeaderLinks';
 import { NavHeader } from './NavHeader';
 import { HeaderSocial } from './headerSocial';
 
 export function Navbar() {
+  const [showLinks, setShowLinks] = useState(false)
+
+  function onToggleLinks() {
+    setShowLinks(!showLinks)
+  }
   return (
     <nav>
       <div className="nav-center">
-        <NavHeader />
+        <NavHeader onToggleLinks={onToggleLinks} />
         <HeaderLinks />
         <HeaderSocial />
       </div>
