@@ -1,263 +1,37 @@
-## Figma URL
+🎉 Welcome to the Navbar Component! 🚀
 
-[Navbar](https://www.figma.com/file/Se61eLfK50x0JatmdSdLzL/Navbar?node-id=0%3A1&t=iDQ4v9bsLeblAFUK-1)
+This React Navbar component is designed to create a responsive navigation bar with toggleable links and social media icons. It provides a seamless user experience for navigating through a website. Let's explore its features!
 
-## Steps
+📦 Tech Stack:
+* React.js
 
-#### Data
+👩🏽‍🍳 Features:
+* Toggleable Links: Toggle between showing and hiding navigation links with a click of a button.
+* Dynamic Height: The height of the links container adjusts dynamically based on the number of links.
+* Social Media Icons: Includes social media icons for easy access to external platforms.
 
-Check the data.jsx file and find two arrays: one for links and one for social icons. Notice how icons from react-icons can be used directly in the data structures. Just make sure in Vite to use .jsx file extension
+💭 Process:
+* Navbar Component: Created a functional component Navbar to encapsulate the navigation functionality.
+* State Management: Utilized React hooks, specifically useState, to manage the state of showing/hiding links.
+* Responsive Design: Implemented a responsive design approach to ensure the navbar adapts to various screen sizes.
+* Ref Usage: Utilized useRef hook to handle dynamic height calculation for the links container.
 
-#### Initial Approach
+📚 Learnings:
+* Enhanced understanding of state management in React using hooks.
+* Practiced implementing responsive design principles in component development.
+* Learned about using refs for dynamic element manipulation and measurement.
 
-Set up a Navbar component with a showLinks state value (boolean). Import the links from data and render them conditionally in the Navbar based on the showLinks state value. Set up a button that toggles the value and as a result, toggles the links. Set up CSS for the Navbar.
+✨ Improvements:
+While the current version of the Navbar component is functional, there are opportunities for improvement:
 
-#### Fixed Approach
+* Styling Enhancements: Improve the visual design and layout of the navbar for better aesthetics.
+* Accessibility: Ensure accessibility standards are met for users with disabilities.
+* Animation: Add transition effects for smoother toggling of links.
 
-Hide links by default in the CSS. Create a class that displays links with a fixed height. Refactor the JSX in the Navbar to toggle the class, which in turn toggles the Navbar.
+🚦 Running the Project: To run the project locally:
 
-#### Dynamic Approach
-
-Use the useRef and getBoundingClientRect() function, to get exact height of links
-
-[Javascript Nuggets - Width/Height](https://www.youtube.com/watch?v=v8YENdbDv1w&list=PLnHJACx3NwAfRUcuKaYhZ6T5NRIpzgNGJ&index=20)
-
-#### Complete App
-
-Finally, add social links and CSS to render the Navbar on the big screen.
-
-#### Application Flow
-
-The flow of the application should look something like this:
-
-- Check the data.js file and find two arrays: one for links and one for social icons.
-
-- Set up a Navbar component with a showLinks state value (boolean). Import the links from data and render them conditionally in the Navbar based on the showLinks state value. Set up a button that toggles the value and as a result, toggles the links. Set up CSS for the Navbar.
-
-- Hide links by default in the CSS. Create a class that displays links with a fixed height. Refactor the JSX in the Navbar to toggle the class, which in turn toggles the Navbar.
-
-- Use the useRef and getBoundingClientRect() function, to get exact height of links
-
-- Add social links and CSS to render the Navbar on the big screen.
-
-#### Initial Approach
-
-Navbar.jsx
-
-```js
-import { useState } from 'react';
-import { FaBars } from 'react-icons/fa';
-import { links, social } from './data';
-import logo from './logo.svg';
-
-const Navbar = () => {
-  const [showLinks, setShowLinks] = useState(false);
-
-  const toggleLinks = () => {
-    setShowLinks(!showLinks);
-  };
-
-  return (
-    <nav>
-      <div className='nav-center'>
-        <div className='nav-header'>
-          <img src={logo} className='logo' alt='logo' />
-          <button className='nav-toggle' onClick={toggleLinks}>
-            <FaBars />
-          </button>
-        </div>
-        {showLinks && (
-          <div className='links-container'>
-            <ul className='links'>
-              {links.map((link) => {
-                const { id, url, text } = link;
-                return (
-                  <li key={id}>
-                    <a href={url}>{text}</a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar;
-```
-
-```css
-nav {
-  background: var(--white);
-  box-shadow: var(--shadow-1);
-}
-.nav-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-}
-.nav-toggle {
-  font-size: 1.5rem;
-  color: var(--primary-500);
-  background: transparent;
-  border-color: transparent;
-  transition: var(--transition);
-  cursor: pointer;
-}
-.nav-toggle:hover {
-  color: var(--primary-700);
-  transform: rotate(90deg);
-}
-.logo {
-  height: 40px;
-}
-.links a {
-  color: var(--grey-700);
-  font-size: 1rem;
-  text-transform: capitalize;
-  letter-spacing: var(--letterSpacing);
-  display: block;
-  padding: 0.5rem 1rem;
-  transition: var(--transition);
-}
-.links a:hover {
-  background: var(--primary-100);
-  color: var(--primary-500);
-  padding-left: 1.5rem;
-}
-```
-
-#### Fixed Approach
-
-```css
-.links-container {
-  height: 0;
-  overflow: hidden;
-  transition: var(--transition);
-}
-.show-container {
-  height: 10rem;
-}
-```
-
-```js
-<div
-  className={showLinks ? 'links-container show-container' : 'links-container'}
->
-  <ul className='links'>....links</ul>
-</div>
-```
-
-#### Dynamic Approach
-
-```css
-.links-container {
-  overflow: hidden;
-  transition: var(--transition);
-}
-```
-
-```js
-import { useState, useRef } from 'react';
-import { FaBars } from 'react-icons/fa';
-import { links, social } from './data';
-import logo from './logo.svg';
-
-const Navbar = () => {
-  const [showLinks, setShowLinks] = useState(false);
-  const linksContainerRef = useRef(null);
-  const linksRef = useRef(null);
-
-  const toggleLinks = () => {
-    setShowLinks(!showLinks);
-  };
-  const linkStyles = {
-    height: showLinks
-      ? `${linksRef.current.getBoundingClientRect().height}px`
-      : '0px',
-  };
-  return (
-    <nav>
-      <div className='nav-center'>
-        <div className='nav-header'>
-          <img src={logo} className='logo' alt='logo' />
-          <button className='nav-toggle' onClick={toggleLinks}>
-            <FaBars />
-          </button>
-        </div>
-
-        <div
-          className='links-container'
-          ref={linksContainerRef}
-          style={linkStyles}
-        >
-          <ul className='links' ref={linksRef}>
-            {links.map((link) => {
-              const { id, url, text } = link;
-              return (
-                <li key={id}>
-                  <a href={url}>{text}</a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar;
-```
-
-#### Complete APP CSS
-
-```css
-.social-icons {
-  display: none;
-}
-@media screen and (min-width: 800px) {
-  .nav-center {
-    max-width: 1170px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-  .nav-header {
-    padding: 0;
-  }
-  .nav-toggle {
-    display: none;
-  }
-  .links-container {
-    height: auto !important;
-  }
-  .links {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .links a {
-    padding: 0;
-  }
-  .links a:hover {
-    padding: 0;
-    background: transparent;
-  }
-  .social-icons {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .social-icons a {
-    color: var(--primary-500);
-    transition: var(--transition);
-  }
-  .social-icons a:hover {
-    color: var(--primary-300);
-  }
-}
-```
+1. Clone the repository from GitHub.
+2. Navigate to the project directory in your terminal.
+3. Run npm install to install dependencies.
+4. Run npm run dev to start the development server.
+5. Open your browser and navigate to http://localhost:5173 to view the application.
