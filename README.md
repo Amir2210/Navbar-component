@@ -29,9 +29,14 @@ While the current version of the Navbar component is functional, there are oppor
 * Animation: Add transition effects for smoother toggling of links.
 
 🚦 Running the Project: To run the project locally:
-
 1. Clone the repository from GitHub.
 2. Navigate to the project directory in your terminal.
 3. Run npm install to install dependencies.
 4. Run npm run dev to start the development server.
 5. Open your browser and navigate to http://localhost:5173 to view the application.
+
+
+
+https://github.com/Amir2210/Navbar-component/assets/107459404/4fa72c87-6c01-4b20-8168-f1dceccd41c3
+
+
