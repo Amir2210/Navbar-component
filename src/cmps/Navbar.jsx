@@ -6,14 +6,16 @@ import { HeaderSocial } from './headerSocial';
 export function Navbar() {
   const [showLinks, setShowLinks] = useState(false)
 
+
   function onToggleLinks() {
     setShowLinks(!showLinks)
   }
+
   return (
     <nav>
       <div className="nav-center">
         <NavHeader onToggleLinks={onToggleLinks} />
-        <HeaderLinks />
+        <HeaderLinks showLinks={showLinks} />
         <HeaderSocial />
       </div>
     </nav>
